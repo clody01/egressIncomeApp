@@ -17,6 +17,6 @@ export class LoginComponent implements OnInit {
     if (userData != null) {
       this.authService.login(userData.email, userData.password);
     }
-    console.log(userData);
+    // console.log(userData);
   }
 }

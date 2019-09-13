@@ -18,6 +18,6 @@ export class RegisterComponent implements OnInit {
     if (userData != null) {
       this.authService.createUser(userData.name, userData.email, userData.password);
     }
-    console.log(userData);
+   // console.log(userData);
   }
 }
