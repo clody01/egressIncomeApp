@@ -2,6 +2,8 @@ import {Injectable} from '@angular/core';
 import {AngularFireAuth} from '@angular/fire/auth';
 import {auth} from 'firebase/app';
 import {Router} from '@angular/router';
+import Swal from 'sweetalert2';
+
 
 @Injectable({
   providedIn: 'root'
@@ -18,6 +20,7 @@ export class AuthService {
          this.router.navigate(['/']);
        })
        .catch( error => {
+        Swal.fire('Login error', error.message, 'error');
          console.error(error);
        });
   }
@@ -30,7 +33,8 @@ export class AuthService {
       })
       .catch( error => {
         console.error(error);
-        this.router.navigate(['/login']);
+        Swal.fire('Login error', error.message, 'error');
+        // this.router.navigate(['/login']);
       });
   }
 }
