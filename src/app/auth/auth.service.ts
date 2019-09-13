@@ -37,4 +37,8 @@ export class AuthService {
         // this.router.navigate(['/login']);
       });
   }
+  logout() {
+    this.router.navigate(['/login']);
+    this.afAuth.auth.signOut();
+  }
 }
