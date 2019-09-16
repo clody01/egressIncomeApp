@@ -17,7 +17,7 @@ export class AuthService {
 
   initAuthListener() {
     this.afAuth.authState.subscribe((fbUser): fireBase.User => {
-      console.log(fbUser);
+     // console.log(fbUser);
       return fbUser;
     });
   }
