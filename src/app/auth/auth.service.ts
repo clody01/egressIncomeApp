@@ -7,13 +7,19 @@ import * as fireBase from 'firebase';
 import {map} from 'rxjs/operators';
 import {User} from './user.model';
 import {AngularFirestore} from '@angular/fire/firestore';
+import {Store} from '@ngrx/store';
+import {AppState} from '../app.reducer';
+import {ActivateLoadingAction, DeactivateLoadingAction} from '../shared/ui.actions';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  constructor(private afAuth: AngularFireAuth, private router: Router, private afDB: AngularFirestore) {
+  constructor(private afAuth: AngularFireAuth,
+              private router: Router,
+              private afDB: AngularFirestore,
+              private store: Store<AppState>) {
   }
 
   initAuthListener() {
@@ -24,6 +30,8 @@ export class AuthService {
   }
 
   createUser(userName: string, email: string, password: string) {
+
+    this.store.dispatch(new ActivateLoadingAction());
     this.afAuth.auth.createUserWithEmailAndPassword(email, password)
       .then(resp => {
 
@@ -38,22 +46,27 @@ export class AuthService {
           .set(user)
           .then(() => {
             this.router.navigate(['/']);
+            this.store.dispatch(new DeactivateLoadingAction());
           });
       })
       .catch(error => {
+        this.store.dispatch(new DeactivateLoadingAction());
         Swal.fire('Login error', error.message, 'error');
         // console.error(error);
       });
   }
 
   login(email: string, password: string) {
+    this.store.dispatch(new ActivateLoadingAction());
     this.afAuth.auth.signInWithEmailAndPassword(email, password)
       .then(resp => {
         // console.log(resp);
         this.router.navigate(['/']);
+        this.store.dispatch(new DeactivateLoadingAction());
       })
       .catch(error => {
         // console.error(error);
+        this.store.dispatch(new DeactivateLoadingAction());
         Swal.fire('Login error', error.message, 'error');
         // this.router.navigate(['/login']);
       });
