@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import {Injectable, OnDestroy} from '@angular/core';
 import {AngularFireAuth} from '@angular/fire/auth';
 import {auth} from 'firebase/app';
 import {Router} from '@angular/router';
@@ -10,20 +10,35 @@ import {AngularFirestore} from '@angular/fire/firestore';
 import {Store} from '@ngrx/store';
 import {AppState} from '../app.reducer';
 import {ActivateLoadingAction, DeactivateLoadingAction} from '../shared/ui.actions';
+import {SetUserAction} from './auth.action';
+import {Subscription} from 'rxjs';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
+  authenticationSubscription: Subscription = new Subscription();
+
   constructor(private afAuth: AngularFireAuth,
               private router: Router,
               private afDB: AngularFirestore,
               private store: Store<AppState>) {
   }
 
+
   initAuthListener() {
     this.afAuth.authState.subscribe((fbUser): fireBase.User => {
+      if (fbUser) {
+        this.authenticationSubscription = this.afDB.doc(`${fbUser.uid}/user`).valueChanges()
+          .subscribe((userObject: any) => {
+            const authenticatedUser = new User(userObject);
+            this.store.dispatch(new SetUserAction(authenticatedUser));
+          });
+      } else {
+        this.authenticationSubscription.unsubscribe();
+      }
+
       // console.log(fbUser);
       return fbUser;
     });
