@@ -38,8 +38,6 @@ export class AuthService {
       } else {
         this.authenticationSubscription.unsubscribe();
       }
-
-      // console.log(fbUser);
       return fbUser;
     });
   }
