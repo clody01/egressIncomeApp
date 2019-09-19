@@ -8,22 +8,24 @@
           Specify the amount and type
         </p>
 
-        <form>
+        <form [formGroup]="egressIncomeForm" (ngSubmit)="createEgressIncome()">
 
           <div class="form-group">
             <label>Description</label>
             <input type="text"
                    class="form-control"
                    placeholder="Description"
-                   name="descripcion">
+                   formControlName="description"
+                   name="description">
           </div>
 
           <div class="form-group">
-            <label>Rode</label>
+            <label>Amount</label>
             <input type="number"
                    class="form-control"
-                   placeholder="Rode"
-                   name="monto">
+                   placeholder="Amount"
+                   formControlName="amount"
+                   name="amount">
             <p>
               It must be a positive amount
             </p>
@@ -32,12 +34,11 @@
           <div class="form-group">
             <label>Type</label>
             <br>
-            <button type="button" class="btn btn-primary btn-block">Income</button>
-            <!-- <button type="button" class="btn btn-warning btn-block">Egreso</button> -->
+            <button (click)="type='egress'" *ngIf="type === 'income'" type="button" class="btn btn-primary btn-block">Income</button>
+            <button (click)="type='income'" *ngIf="type === 'egress'" type="button" class="btn btn-warning btn-block">Egress</button>
           </div>
-
           <hr>
-          <button type="button" class="btn btn-success mr-2">
+          <button [disabled]="egressIncomeForm.invalid" type="submit" class="btn btn-success mr-2">
             <i class="fa fa-save"></i>
             Aggregate
           </button>

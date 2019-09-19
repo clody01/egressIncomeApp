@@ -14,7 +14,7 @@ import {SidebarComponent} from './shared/sidebar/sidebar.component';
 
 // Modules
 import {AppRoutingModule} from './app-routing.module';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 // Firebase
 import {AngularFireModule} from '@angular/fire';
@@ -55,6 +55,7 @@ import {environment} from '../environments/environment';
       maxAge: 25, // Retains last 25 states
       logOnly: environment.production, // Restrict extension to log-only mode
     }),
+    ReactiveFormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
