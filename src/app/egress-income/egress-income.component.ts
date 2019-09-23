@@ -1,6 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {EgressIncome} from './egress-income.model';
+import {EgressIncomeService} from './egress-income.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-egress-income',
@@ -11,7 +13,7 @@ export class EgressIncomeComponent implements OnInit {
   egressIncomeForm: FormGroup;
   type = 'income';
 
-  constructor() {
+  constructor(public egressIncomeService: EgressIncomeService) {
   }
 
   ngOnInit() {
@@ -23,6 +25,12 @@ export class EgressIncomeComponent implements OnInit {
 
   createEgressIncome() {
     const egressIncome = new EgressIncome({...this.egressIncomeForm.value, type: this.type});
-    console.log('egressIncome =>', egressIncome);
+    this.egressIncomeService.createEgressIncome(egressIncome)
+      .then(() => {
+        Swal.fire('Created', egressIncome.description, 'success');
+        this.egressIncomeForm.reset({amount: 0});
+      });
+
+    // console.log('egressIncome =>', egressIncome);
   }
 }
