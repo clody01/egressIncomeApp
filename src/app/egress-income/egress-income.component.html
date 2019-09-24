@@ -1,4 +1,3 @@
-
 <div class="row">
   <div class="col-12">
     <div class="card">
@@ -34,20 +33,24 @@
           <div class="form-group">
             <label>Type</label>
             <br>
-            <button (click)="type='egress'" *ngIf="type === 'income'" type="button" class="btn btn-primary btn-block">Income</button>
-            <button (click)="type='income'" *ngIf="type === 'egress'" type="button" class="btn btn-warning btn-block">Egress</button>
+            <button (click)="type='egress'" *ngIf="type === 'income'" type="button" class="btn btn-primary btn-block">
+              Income
+            </button>
+            <button (click)="type='income'" *ngIf="type === 'egress'" type="button" class="btn btn-warning btn-block">
+              Egress
+            </button>
           </div>
           <hr>
-          <button [disabled]="egressIncomeForm.invalid" type="submit" class="btn btn-success mr-2">
+          <button *ngIf="!loading" [disabled]="egressIncomeForm.invalid" type="submit" class="btn btn-success mr-2">
             <i class="fa fa-save"></i>
             Aggregate
           </button>
-          <!--
-            <button disabled class="btn btn-success mr-2">
-              <i class="fa fa-spin fa-sync"></i>
-              Espere por favor...
-            </button>
-          -->
+
+          <button *ngIf="loading" disabled class="btn btn-success mr-2">
+            <i class="fa fa-spin fa-sync"></i>
+            Espere por favor...
+          </button>
+
           <button type="reset" class="btn btn-light">Delete</button>
         </form>
       </div>
