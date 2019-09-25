@@ -8,6 +8,6 @@ export class EgressIncome {
     this.description = obj && obj.description || null;
     this.amount = obj && obj.amount || null;
     this.type = obj && obj.type || null;
-    // this.uid = obj && obj.uid || null;
+    this.uid = obj && obj.uid || null;
   }
 }
