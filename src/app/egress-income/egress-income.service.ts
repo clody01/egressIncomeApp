@@ -30,14 +30,14 @@ export class EgressIncomeService {
     this.afDB.collection(`${uid}/egress-income/items`)
       .valueChanges()
       .subscribe(docData => {
-        console.log('docData:', docData);
+        console.log(docData);
       });
   }
 
-  createEgressIncome(esgressIncome: EgressIncome) {
+  createEgressIncome(egressIncome: EgressIncome) {
     const user = this.authService.getUser();
     return this.afDB.doc(`${user.uid}/egress-income`)
-      .collection('items').add({...esgressIncome});
+      .collection('items').add({...egressIncome});
   }
 
 }
