@@ -1,36 +1,49 @@
-import {Injectable} from '@angular/core';
+import {Injectable, OnDestroy} from '@angular/core';
 import {AngularFirestore} from '@angular/fire/firestore';
 import {EgressIncome} from './egress-income.model';
 import {AuthService} from '../auth/auth.service';
 import {AppState} from '../app.reducer';
 import {Store} from '@ngrx/store';
-import {filter} from 'rxjs/operators';
+import {filter, map} from 'rxjs/operators';
+import {SetItemsAction} from './egress-income.actions';
+import {Subscription} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class EgressIncomeService {
+  egressIncomeListSubscription: Subscription = new Subscription();
+  egressIncomeItemsSubscription: Subscription = new Subscription();
 
   constructor(private afDB: AngularFirestore,
               public authService: AuthService,
               private store: Store<AppState>) {
   }
+  deleteSubscriptions(){
+    this.egressIncomeItemsSubscription.unsubscribe();
+    this.egressIncomeListSubscription.unsubscribe();
+  }
 
-  initEgressIcomeListener() {
-    this.store.select('auth')
+  initEgressIncomeListener() {
+    this.egressIncomeListSubscription = this.store.select('auth')
     //    .pipe( filter( auth => auth.user != null ))
       .subscribe(auth => {
         if (auth.user != null) {
-          this.egressIcomeItems(auth.user.uid);
+          this.egressIncomeItems(auth.user.uid);
         }
       });
   }
 
-  private egressIcomeItems(uid: string) {
-    this.afDB.collection(`${uid}/egress-income/items`)
-      .valueChanges()
-      .subscribe(docData => {
-        console.log(docData);
+  private egressIncomeItems(uid: string) {
+    this.egressIncomeItemsSubscription = this.afDB.collection(`${uid}/egress-income/items`)
+      .snapshotChanges()
+      .pipe(map(docData => {
+        return docData.map(doc => {
+          return {...doc.payload.doc.data(), uid: doc.payload.doc.id};
+        });
+      }))
+      .subscribe((collection: any []) => {
+        this.store.dispatch(new SetItemsAction(collection));
       });
   }
 
@@ -39,5 +52,7 @@ export class EgressIncomeService {
     return this.afDB.doc(`${user.uid}/egress-income`)
       .collection('items').add({...egressIncome});
   }
+
+
 
 }
