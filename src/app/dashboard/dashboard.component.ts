@@ -11,7 +11,7 @@ export class DashboardComponent implements OnInit {
   constructor(public egressIncomeService: EgressIncomeService) { }
 
   ngOnInit() {
-    this.egressIncomeService.initEgressIcomeListener();
+    this.egressIncomeService.initEgressIncomeListener();
   }
 
 }
