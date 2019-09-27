@@ -19,7 +19,8 @@ export class EgressIncomeService {
               public authService: AuthService,
               private store: Store<AppState>) {
   }
-  deleteSubscriptions(){
+
+  deleteSubscriptions() {
     this.egressIncomeItemsSubscription.unsubscribe();
     this.egressIncomeListSubscription.unsubscribe();
   }
@@ -53,6 +54,10 @@ export class EgressIncomeService {
       .collection('items').add({...egressIncome});
   }
 
-
+  deleteEgressIncome(uid: string) {
+    const user = this.authService.getUser();
+    return this.afDB.doc(`${user.uid}/egress-income/items/${uid}`)
+      .delete();
+  }
 
 }
