@@ -28,6 +28,7 @@ import {StoreDevtoolsModule} from '@ngrx/store-devtools';
 
 // Environment
 import {environment} from '../environments/environment';
+import { OrderEgressIncomePipe } from './egress-income/order-egress-income.pipe';
 
 
 @NgModule({
@@ -41,7 +42,8 @@ import {environment} from '../environments/environment';
     DetailComponent,
     FooterComponent,
     NavbarComponent,
-    SidebarComponent
+    SidebarComponent,
+    OrderEgressIncomePipe
   ],
   imports: [
     BrowserModule,
