@@ -4,6 +4,7 @@ import {Store} from '@ngrx/store';
 import {AppState} from '../../app.reducer';
 import {Subscription} from 'rxjs';
 import {filter} from 'rxjs/operators';
+import {EgressIncomeService} from '../../egress-income/egress-income.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -13,7 +14,11 @@ import {filter} from 'rxjs/operators';
 export class SidebarComponent implements OnInit, OnDestroy {
   currentUserName: string;
   currentUserSubscription: Subscription = new Subscription();
-  constructor(public authService: AuthService, private store: Store<AppState>) { }
+
+  constructor(public authService: AuthService,
+              private store: Store<AppState>,
+              public egressIncomeService: EgressIncomeService) {
+  }
 
   ngOnInit() {
     this.currentUserSubscription = this.store.select('auth')
@@ -22,9 +27,12 @@ export class SidebarComponent implements OnInit, OnDestroy {
       )
       .subscribe(auth => this.currentUserName = auth.user.name);
   }
+
   ngOnDestroy(): void {
     this.currentUserSubscription.unsubscribe();
+    this.egressIncomeService.deleteSubscriptions();
   }
+
   logout() {
     this.authService.logout();
   }

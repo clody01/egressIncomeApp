@@ -5,7 +5,7 @@ import {AuthService} from '../auth/auth.service';
 import {AppState} from '../app.reducer';
 import {Store} from '@ngrx/store';
 import {filter, map} from 'rxjs/operators';
-import {SetItemsAction} from './egress-income.actions';
+import {SetItemsAction, UnSetItemsAction} from './egress-income.actions';
 import {Subscription} from 'rxjs';
 
 @Injectable({
@@ -23,6 +23,7 @@ export class EgressIncomeService {
   deleteSubscriptions() {
     this.egressIncomeItemsSubscription.unsubscribe();
     this.egressIncomeListSubscription.unsubscribe();
+    this.store.dispatch(new UnSetItemsAction());
   }
 
   initEgressIncomeListener() {

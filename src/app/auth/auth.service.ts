@@ -10,7 +10,7 @@ import {AngularFirestore} from '@angular/fire/firestore';
 import {Store} from '@ngrx/store';
 import {AppState} from '../app.reducer';
 import {ActivateLoadingAction, DeactivateLoadingAction} from '../shared/ui.actions';
-import {SetUserAction} from './auth.action';
+import {SetUserAction, UnsetUserAction} from './auth.action';
 import {Subscription} from 'rxjs';
 
 
@@ -91,6 +91,7 @@ export class AuthService {
   logout() {
     this.router.navigate(['/login']);
     this.afAuth.auth.signOut();
+    this.store.dispatch(new UnsetUserAction());
   }
 
   isAuth() {
