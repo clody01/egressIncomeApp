@@ -15,7 +15,8 @@ export class StatisticComponent implements OnInit {
   howManyExpenses: number;
   howManyIncomes: number;
   statisticsSubscription: Subscription = new Subscription();
-
+  public doughnutChartLabels: string[] = ['Income', 'Expense'];
+  public doughnutChartData: number[] = [];
   constructor(private  store: Store<AppState>) {
   }
 
@@ -39,5 +40,6 @@ export class StatisticComponent implements OnInit {
         this.expenses += item.amount;
       }
     });
+    this.doughnutChartData = [this.incomes, this.expenses];
   }
 }

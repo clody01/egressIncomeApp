@@ -29,8 +29,8 @@ import {StoreDevtoolsModule} from '@ngrx/store-devtools';
 // Environment
 import {environment} from '../environments/environment';
 import { OrderEgressIncomePipe } from './egress-income/order-egress-income.pipe';
-
-
+// Graphs
+import { ChartsModule } from 'ng2-charts';
 @NgModule({
   declarations: [
     AppComponent,
@@ -57,6 +57,7 @@ import { OrderEgressIncomePipe } from './egress-income/order-egress-income.pipe'
       maxAge: 25, // Retains last 25 states
       logOnly: environment.production, // Restrict extension to log-only mode
     }),
+    ChartsModule,
     ReactiveFormsModule,
   ],
   providers: [],
