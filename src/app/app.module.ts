@@ -14,12 +14,12 @@ import {SidebarComponent} from './shared/sidebar/sidebar.component';
 
 // Modules
 import {AppRoutingModule} from './app-routing.module';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {ReactiveFormsModule} from '@angular/forms';
 
 // Firebase
 import {AngularFireModule} from '@angular/fire';
 import {AngularFirestoreModule} from '@angular/fire/firestore';
-import {AngularFireAuthModule} from '@angular/fire/auth';
+// import {AngularFireAuthModule} from '@angular/fire/auth';
 
 // NGRX
 import {StoreModule} from '@ngrx/store';
@@ -28,14 +28,18 @@ import {StoreDevtoolsModule} from '@ngrx/store-devtools';
 
 // Environment
 import {environment} from '../environments/environment';
-import { OrderEgressIncomePipe } from './egress-income/order-egress-income.pipe';
+import {OrderEgressIncomePipe} from './egress-income/order-egress-income.pipe';
 // Graphs
-import { ChartsModule } from 'ng2-charts';
+import {ChartsModule} from 'ng2-charts';
+
+// Personals modules
+import {AuthModule} from './auth/auth.module';
+
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent,
-    RegisterComponent,
+    // LoginComponent,
+    // RegisterComponent,
     DashboardComponent,
     EgressIncomeComponent,
     StatisticComponent,
@@ -43,15 +47,16 @@ import { ChartsModule } from 'ng2-charts';
     FooterComponent,
     NavbarComponent,
     SidebarComponent,
-    OrderEgressIncomePipe
+    OrderEgressIncomePipe,
   ],
   imports: [
     BrowserModule,
+    AuthModule,
     AppRoutingModule,
-    FormsModule,
+    // FormsModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
-    AngularFireAuthModule,
+    //  AngularFireAuthModule,
     StoreModule.forRoot(appReducers),
     StoreDevtoolsModule.instrument({
       maxAge: 25, // Retains last 25 states
