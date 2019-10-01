@@ -34,6 +34,7 @@ import {ChartsModule} from 'ng2-charts';
 
 // Personals modules
 import {AuthModule} from './auth/auth.module';
+import {SharedModule} from './shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -44,14 +45,15 @@ import {AuthModule} from './auth/auth.module';
     EgressIncomeComponent,
     StatisticComponent,
     DetailComponent,
-    FooterComponent,
-    NavbarComponent,
-    SidebarComponent,
+    // FooterComponent,
+    // NavbarComponent,
+    // SidebarComponent,
     OrderEgressIncomePipe,
   ],
   imports: [
     BrowserModule,
     AuthModule,
+    SharedModule,
     AppRoutingModule,
     // FormsModule,
     AngularFireModule.initializeApp(environment.firebase),
