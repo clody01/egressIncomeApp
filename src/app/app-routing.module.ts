@@ -12,9 +12,7 @@ const routes: Routes = [
   {path: 'register', component: RegisterComponent},
   {
     path: '',
-    component: DashboardComponent,
-    children: dashboardRoutes,
-    canActivate: [AuthGardService]
+    loadChildren: './egress-income/egress-income.module#EgressIncomeModule',
   },
   {path: '**', redirectTo: ''}
 ];
