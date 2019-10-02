@@ -1,5 +1,5 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {AppState} from '../../app.reducer';
+import * as fromEgressIncome from '../../egress-income/egress-income.reducer';
 import {Store} from '@ngrx/store';
 import {EgressIncome} from '../egress-income.model';
 import {Subscription} from 'rxjs';
@@ -15,7 +15,7 @@ export class DetailComponent implements OnInit, OnDestroy {
   items: EgressIncome[];
   egressIncomeListSubscription: Subscription = new Subscription();
 
-  constructor(private store: Store<AppState>,
+  constructor(private store: Store<fromEgressIncome.AppState>,
               public egressIncomeService: EgressIncomeService) {
   }
 

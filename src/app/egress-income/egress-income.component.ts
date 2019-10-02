@@ -4,7 +4,7 @@ import {EgressIncome} from './egress-income.model';
 import {EgressIncomeService} from './egress-income.service';
 import Swal from 'sweetalert2';
 import {Store} from '@ngrx/store';
-import {AppState} from '../app.reducer';
+import * as fromEgressIncome from '../egress-income/egress-income.reducer';
 import {Subscription} from 'rxjs';
 import {ActivateLoadingAction, DeactivateLoadingAction} from '../shared/ui.actions';
 
@@ -19,7 +19,7 @@ export class EgressIncomeComponent implements OnInit, OnDestroy {
   loadingSubscription: Subscription = new Subscription();
   loading: boolean;
 
-  constructor(public egressIncomeService: EgressIncomeService, private store: Store<AppState>) {
+  constructor(public egressIncomeService: EgressIncomeService, private store: Store<fromEgressIncome.AppState>) {
   }
 
   ngOnInit() {

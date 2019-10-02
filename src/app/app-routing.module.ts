@@ -13,6 +13,7 @@ const routes: Routes = [
   {
     path: '',
     loadChildren: './egress-income/egress-income.module#EgressIncomeModule',
+    canLoad: [AuthGardService]
   },
   {path: '**', redirectTo: ''}
 ];

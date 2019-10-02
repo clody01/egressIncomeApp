@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Store} from '@ngrx/store';
-import {AppState} from '../../app.reducer';
+import * as fromEgressIncome from '../../egress-income/egress-income.reducer';
 import {Subscription} from 'rxjs';
 import {EgressIncome} from '../egress-income.model';
 
@@ -17,7 +17,8 @@ export class StatisticComponent implements OnInit {
   statisticsSubscription: Subscription = new Subscription();
   public doughnutChartLabels: string[] = ['Income', 'Expense'];
   public doughnutChartData: number[] = [];
-  constructor(private  store: Store<AppState>) {
+
+  constructor(private  store: Store<fromEgressIncome.AppState>) {
   }
 
   ngOnInit() {

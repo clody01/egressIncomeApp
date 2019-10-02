@@ -9,6 +9,8 @@ import {ChartsModule} from 'ng2-charts';
 import {ReactiveFormsModule} from '@angular/forms';
 import {SharedModule} from '../shared/shared.module';
 import {DashboardRoutingModule} from '../dashboard/dashboard-routing.module';
+import {StoreModule} from '@ngrx/store';
+import {egressIncomeReducer} from './egress-income.reducer';
 
 
 @NgModule({
@@ -17,14 +19,15 @@ import {DashboardRoutingModule} from '../dashboard/dashboard-routing.module';
     EgressIncomeComponent,
     StatisticComponent,
     DetailComponent,
-    OrderEgressIncomePipe,
+    OrderEgressIncomePipe
   ],
   imports: [
     CommonModule,
     ChartsModule,
     ReactiveFormsModule,
     SharedModule,
-    DashboardRoutingModule
+    DashboardRoutingModule,
+    StoreModule.forFeature('egressIncome', egressIncomeReducer),
   ]
 })
 export class EgressIncomeModule {

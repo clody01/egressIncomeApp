@@ -1,5 +1,5 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
 import {DashboardComponent} from './dashboard.component';
 import {dashboardRoutes} from './dashboard.routes';
 import {AuthGardService} from '../auth/auth-gard.service';
@@ -11,9 +11,10 @@ const routes: Routes = [
     path: '',
     component: DashboardComponent,
     children: dashboardRoutes,
-   //  canActivate: [AuthGardService]
+    canActivate: [AuthGardService]
   },
 ];
+
 @NgModule({
   declarations: [],
   imports: [
@@ -23,4 +24,5 @@ const routes: Routes = [
     RouterModule
   ]
 })
-export class DashboardRoutingModule { }
+export class DashboardRoutingModule {
+}
